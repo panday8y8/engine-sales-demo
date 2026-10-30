@@ -2,6 +2,8 @@
 
 把一台发动机做成客户能自己拆的 60 秒：可交互 3D 销售演示 + 演示脚本 + 一套可复用的 Skill。
 
+配套长文（飞书）：[客户说「你们和别家差不多」：我做了套能让他自己拆的发动机演示](https://fcnubuhvffh5.feishu.cn/docx/QmVddWhc9o1I44x5iiYcLpOVneh)
+
 ![合上](examples/13b/screenshots/01-hero.jpg)
 ![演示脚本](examples/13b/screenshots/02-tour.jpg)
 
