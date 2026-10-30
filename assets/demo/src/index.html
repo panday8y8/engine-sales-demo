@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>13B 双转子 · 汪克尔发动机</title>
+<style>/*__CSS__*/</style>
+</head>
+<body>
+<div id="grain"></div>
+
+<div id="stage">
+  <canvas id="c"></canvas>
+  <svg id="leaders"></svg>
+  <div id="labels"></div>
+  <div id="scalebar"><div class="line" style="width:104px"></div><div class="txt">10 cm</div></div>
+</div>
+
+<header id="top">
+  <div class="brand"><span class="slash">/</span>machine</div>
+  <div class="title">马自达 RX-7 的双转子发动机：三角转子在 8 字形缸体里完成进气、压缩、点火与排气</div>
+  <div class="meta">
+    <span><i></i>three.js</span>
+    <span><i></i>汪克尔几何</span>
+    <span><i></i><span id="slowTag">1:60 慢放</span></span>
+  </div>
+</header>
+
+<aside id="panel">
+  <div class="no">No. 03</div>
+  <div class="name">13B</div>
+  <div class="sub">双转子</div>
+
+  <div class="state"><span class="bar"></span><span id="stateText">功率 · 全负荷</span></div>
+  <div class="power"><span class="num" id="kw">109</span><span class="unit">kW</span></div>
+
+  <div class="rule"></div>
+
+  <div class="facts">
+    <div>转速 <b id="rpm">6,898</b> rpm<span class="sep">·</span>扭矩 <b id="nm">151</b> N·m</div>
+    <div>进气 <b id="intakeBar">1.00</b> bar<span class="sep">·</span>点火 <b id="spark">230</b> 次/秒</div>
+  </div>
+
+  <div class="throttle">
+    <div class="row"><span>油门</span><span class="val"><span id="thrVal">100</span> %</span></div>
+    <input id="thr" type="range" min="0" max="100" value="100" step="1">
+    <div class="ticks"><span>怠速</span><span>全开</span></div>
+  </div>
+
+  <div id="calc">计算说明 ＋</div>
+</aside>
+
+<div id="calcbox">
+  <div>功率由扭矩与角速度实时求得：</div>
+  <div><code>P = T · ω = T · 2πn / 60</code></div>
+  <div>扭矩取自 13B 自然吸气曲线</div>
+  <div><code>T(n) = 190 − 4.64e-6 · (n − 4000)²</code></div>
+  <div>转子转速恒为偏心轴的 1/3，三腔依次相差 360° 曲轴角。</div>
+</div>
+
+<div id="bottomBar">
+  <button id="bPause">暂停 <kbd>Space</kbd></button>
+  <button id="bExplode">拆开 <kbd>E</kbd></button>
+  <button id="bCut">切开 <kbd>C</kbd></button>
+  <button id="bXray">透视 <kbd>X</kbd></button>
+  <button id="bSlow">慢放 <kbd>S</kbd></button>
+  <button id="bLabel">标注 <kbd>L</kbd></button>
+  <span class="gap"></span>
+  <button id="bFault" class="fault">顶角密封片磨损 <kbd>B</kbd></button>
+</div>
+
+<div id="hint">拖动旋转 · 滚轮缩放</div>
+<div id="toast"></div>
+
+<script>/*__JS__*/</script>
+</body>
+</html>
