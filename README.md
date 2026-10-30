@@ -61,6 +61,22 @@ assets/demo/
 examples/13b/spec.md         13B 平台的填表示例
 ```
 
+## 发布到 GitHub
+
+仓库已经 `git init` 并提交过一次，只差一个远程地址：
+
+```bash
+# 方式一：装了 GitHub CLI
+gh repo create engine-sales-demo --public --source=. --push
+
+# 方式二：先去 github.com 手动建一个空仓库，然后
+git remote add origin https://github.com/<your-name>/engine-sales-demo.git
+git branch -M main
+git push -u origin main
+```
+
+推送前记得把 `LICENSE` 里的 `<your name>` 换成你自己的名字。
+
 ## 为什么是「发动机 + 演示」而不是「一个 3D 模型」
 
 一个会转的模型解决不了销售问题。这套东西的顺序是：
