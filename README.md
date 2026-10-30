@@ -31,7 +31,7 @@
 
 ```bash
 git clone <this-repo> && cd engine-sales-demo/assets/demo
-# 改 src/spec.js：品牌、产品名、参数、六条标注、四句销售话术
+# 改 src/spec.js：品牌、产品名、参数、七条标注、四句销售话术
 python build.py
 ```
 
