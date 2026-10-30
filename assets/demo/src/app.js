@@ -793,7 +793,8 @@ const ui = {
   bXray: document.getElementById('bXray'),
   bSlow: document.getElementById('bSlow'),
   bLabel: document.getElementById('bLabel'),
-  bFault: document.getElementById('bFault')
+  bFault: document.getElementById('bFault'),
+  bTour: document.getElementById('bTour')
 };
 
 // ---------------------------------------------------------------- 动力学
@@ -973,7 +974,9 @@ function layoutLabels(visibleSet, chamberInfo) {
 }
 
 // ---------------------------------------------------------------- UI 绑定
+let quiet = false;
 function toast(msg) {
+  if (quiet) return;
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('on');
@@ -1055,6 +1058,13 @@ window.addEventListener('keydown', (e) => {
   if (k === 's') setSlow(!state.slow);
   if (k === 'l') setLabels(!state.labels);
   if (k === 'b') setFault(!state.fault);
+  if (k === 'p') { tourState.open ? closeTour() : openTour(); }
+  if (tourState.open && k === 'arrowright') { tourState.role = -1; applyStep(tourState.i + 1); }
+  if (tourState.open && k === 'arrowleft') { tourState.role = -1; applyStep(tourState.i - 1); }
+  if (k === 'escape') {
+    if (document.body.classList.contains('self')) setSelf(false);
+    else if (tourState.open) closeTour();
+  }
 });
 
 // ---------------------------------------------------------------- 尺寸
@@ -1213,6 +1223,9 @@ window.__demo = {
     }
     if (s.phi !== undefined) sim.phi = s.phi;
     if (s.rpm !== undefined) sim.rpm = s.rpm;
+    if (s.tour !== undefined) { if (!tourState.open) openTour(); applyStep(s.tour); }
+    if (s.role !== undefined) { if (!tourState.open) openTour(); jumpRole(s.role); }
+    if (s.self !== undefined) setSelf(!!s.self);
     if (s.cam) {
       cam.theta = s.cam.theta ?? cam.theta;
       cam.phi = s.cam.phi ?? cam.phi;
@@ -1231,6 +1244,91 @@ window.__demo = {
     });
   }
 };
+
+// ---------------------------------------------------------------- 演示脚本
+const tourEl = document.getElementById('tour');
+const tourState = { open: false, i: 0, role: -1 };
+
+(function buildTour() {
+  const chips = document.getElementById('troleChips');
+  SPEC.roles.forEach((r, i) => {
+    const b = document.createElement('button');
+    b.textContent = r.k;
+    b.onclick = () => jumpRole(i);
+    chips.appendChild(b);
+  });
+  const dots = document.getElementById('tdots');
+  SPEC.tour.forEach(() => dots.appendChild(document.createElement('i')));
+})();
+
+function syncTourCard() {
+  const step = SPEC.tour[tourState.i];
+  const role = tourState.role >= 0 ? SPEC.roles[tourState.role] : null;
+  document.getElementById('tno').textContent = String(tourState.i + 1).padStart(2, '0');
+  document.getElementById('ttitle').textContent = step.title;
+  document.getElementById('tline').textContent = role ? '「' + role.line + '」' : step.line;
+  document.getElementById('troleline').textContent = role ? '对「' + role.k + '」说的 30 秒。' : '';
+  document.querySelectorAll('#tdots i').forEach((d, k) => d.classList.toggle('on', k === tourState.i));
+  document.querySelectorAll('#troleChips button').forEach((b, k) => b.classList.toggle('on', k === tourState.role));
+}
+
+function applyStep(i) {
+  const step = SPEC.tour[i];
+  tourState.i = Math.max(0, Math.min(SPEC.tour.length - 1, i));
+  const st = step.state;
+  quiet = true;
+  setPaused(false);
+  setCut(st.cut ? 1 : 0);
+  setExplode(st.explode ? 1 : 0);
+  setXray(!!st.xray);
+  setSlow(!!st.slow);
+  setFault(!!st.fault);
+  if (st.throttle !== undefined) {
+    state.throttle = st.throttle;
+    ui.thr.value = String(Math.round(st.throttle * 100));
+    ui.thrVal.textContent = String(Math.round(st.throttle * 100));
+  }
+  if (st.rot !== undefined) sim.phi = st.rot;
+  if (step.cam) {
+    cam.theta = step.cam.theta;
+    cam.phi = step.cam.phi;
+    cam.radius = step.cam.radius;
+    applyCamera();
+  }
+  quiet = false;
+  syncTourCard();
+}
+
+function openTour() {
+  tourEl.classList.remove('off');
+  ui.bTour.classList.add('on');
+  tourState.open = true;
+  tourState.role = -1;
+  applyStep(0);
+}
+function closeTour() {
+  tourEl.classList.add('off');
+  ui.bTour.classList.remove('on');
+  tourState.open = false;
+}
+function jumpRole(i) {
+  tourState.role = i;
+  applyStep(SPEC.roles[i].step);
+  syncTourCard();
+}
+function setSelf(v) {
+  document.body.classList.toggle('self', v);
+  if (v) closeTour();
+  toast(v ? '客户自助版：只留四个交互，右下角是预约入口' : '回到销售版');
+}
+ui.bTour.onclick = () => (tourState.open ? closeTour() : openTour());
+document.getElementById('tPrev').onclick = () => { tourState.role = -1; applyStep(tourState.i - 1); };
+document.getElementById('tNext').onclick = () => { tourState.role = -1; applyStep(tourState.i + 1); };
+document.getElementById('tExit').onclick = closeTour;
+const tSelfBtn = document.getElementById('tSelf');
+if (tSelfBtn) tSelfBtn.onclick = () => setSelf(true);
+document.getElementById('ctaExit').onclick = () => setSelf(false);
+
 // 把 spec 写进页面
 (function applySpec() {
   document.title = SPEC.docTitle;

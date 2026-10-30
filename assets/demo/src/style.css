@@ -433,3 +433,91 @@ button.fault.on { background: #cf4d24; border-color: #cf4d24; color: #fff4ea; }
   #panel .power .num { font-size: 96px; }
   #top .title { max-width: 520px; }
 }
+
+
+/* ---------- 演示脚本 ---------- */
+.tourbtn { border-color: rgba(25,25,23,.55); font-weight: 500; }
+.tourbtn.on { background: #191917; color: #f2eee3; border-color: #191917; }
+
+#tour {
+  position: fixed;
+  bottom: 92px;
+  left: calc((100vw - 400px) / 2);
+  transform: translateX(-50%);
+  width: min(720px, calc(100vw - 480px));
+  background: #fbf8f1;
+  border: 1px solid rgba(25,25,23,.32);
+  box-shadow: 0 22px 60px rgba(40,30,18,.22);
+  padding: 13px 18px 12px;
+  z-index: 12;
+  transition: opacity .28s ease, transform .28s ease;
+}
+#tour.off { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(10px); }
+
+#tour .thead { display: flex; align-items: center; gap: 10px; }
+#tour .tno {
+  font-family: var(--serif); font-size: 22px; line-height: 1;
+  letter-spacing: -0.02em; color: #191917;
+}
+#tour .ttotal { font-family: var(--mono); font-size: 10px; color: #8b8477; letter-spacing: .08em; }
+#tour .tdiv { color: #b3ab9c; font-size: 10px; }
+#tour .tkicker { font-family: var(--mono); font-size: 9px; letter-spacing: .16em; color: #8b8477; }
+#tour .tdots { display: flex; gap: 7px; margin-left: 14px; }
+#tour .tdots i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(25,25,23,.2); display: block;
+}
+#tour .tdots i.on { background: #191917; }
+#tour .tspacer { flex: 1; }
+#tour .tmini {
+  border: 1px solid rgba(25,25,23,.22); background: transparent;
+  border-radius: 2px; padding: 3px 9px; font-size: 12px; color: #2c2a25;
+}
+#tour .tmini:hover { background: #191917; color: #f2eee3; border-color: #191917; }
+#tour .tmini.wide { font-size: 11px; padding: 3px 10px; }
+
+#tour .ttitle {
+  font-family: var(--serif); font-size: 18px; letter-spacing: .01em;
+  margin-top: 8px; color: #191917;
+}
+#tour .tline {
+  font-size: 13.5px; line-height: 1.65; color: #3b3830; margin-top: 5px;
+}
+#tour .tfoot { display: flex; align-items: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+#tour .tlabel { font-size: 9.5px; letter-spacing: .14em; color: #8b8477; }
+#tour .tchips { display: flex; gap: 6px; flex-wrap: wrap; }
+#tour .tchips button {
+  border: 1px solid rgba(25,25,23,.18); border-radius: 999px;
+  padding: 4px 10px; font-size: 11px; background: transparent; color: #3b3830;
+}
+#tour .tchips button:hover { border-color: rgba(25,25,23,.5); background: rgba(255,255,255,.5); }
+#tour .tchips button.on { background: #191917; color: #f2eee3; border-color: #191917; }
+#tour .troleline {
+  font-size: 12px; line-height: 1.6; color: #7a4a26;
+  margin-top: 8px; min-height: 19px;
+}
+
+/* ---------- 客户自助版 ---------- */
+body.self #bFault, body.self #bXray, body.self #bLabel,
+body.self #calc, body.self #hint, body.self #bTour { display: none; }
+body.self #panel .facts, body.self #panel .state { opacity: .55; }
+
+#cta {
+  position: fixed; right: 44px; bottom: 34px; width: 300px;
+  background: rgba(252,249,242,.94); border: 1px solid rgba(25,25,23,.22);
+  padding: 16px 18px; z-index: 12; display: none;
+  box-shadow: 0 16px 40px rgba(40,30,18,.14);
+}
+body.self #cta { display: block; }
+#cta .cta-k { font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; color: #8b8477; }
+#cta .cta-t { font-family: var(--serif); font-size: 18px; margin-top: 6px; color: #191917; }
+#cta .cta-s { font-size: 11px; color: #6f695f; margin-top: 6px; line-height: 1.6; }
+#cta .cta-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+#cta .cta-btn {
+  background: #191917; color: #f2eee3; text-decoration: none;
+  font-size: 11.5px; padding: 7px 12px; border-radius: 2px;
+}
+#cta button {
+  border: 1px solid rgba(25,25,23,.2); background: transparent;
+  font-size: 11px; padding: 6px 10px; border-radius: 2px; color: #3b3830;
+}

@@ -3,7 +3,7 @@
 把一台发动机做成客户能自己拆的 60 秒：可交互 3D 销售演示 + 演示脚本 + 一套可复用的 Skill。
 
 ![合上](examples/13b/screenshots/01-hero.jpg)
-![切开](examples/13b/screenshots/02-cut.jpg)
+![演示脚本](examples/13b/screenshots/02-tour.jpg)
 
 ## 这是什么
 
@@ -14,11 +14,13 @@
 - **透视**：外壳半透明，看内部布局
 - **油门**：0–100% 联动转速、扭矩、功率（P = T·2πn/60，实时算）
 - **故障**：顶角密封片磨损 70%，功率下降、密封片变红、抖动，可恢复
-- **标注**：零件引线 + 实时腔体容积
+- **演示脚本**：底部一张卡，5 步流程 + 要念的台词，方向键翻页
+- **五个角色**：使用 / 设备 / 采购 / 财务 / 老板，点一下跳到他关心的 30 秒
+- **客户自助版**：只留四个交互，右下角挂预约入口
 
 单文件 HTML，双击就开，不联网也能用。
 
-![拆开](examples/13b/screenshots/03-explode.jpg)
+![角色](examples/13b/screenshots/03-role.jpg)
 ![故障](examples/13b/screenshots/04-fault.jpg)
 
 ## 快速开始
@@ -30,8 +32,9 @@
 ### 换成你的产品
 
 ```bash
-git clone <this-repo> && cd engine-sales-demo/assets/demo
-# 改 src/spec.js：品牌、产品名、参数、七条标注、四句销售话术
+git clone https://github.com/panday8y8/engine-sales-demo.git
+cd engine-sales-demo/assets/demo
+# 改 src/spec.js：品牌、产品名、参数、七条标注、四句话术、五步脚本
 python build.py
 ```
 
@@ -54,28 +57,12 @@ references/
   spec-template.md           开工前要填的表
 assets/demo/
   双转子平台-销售演示.html      可直接运行的成品
-  src/spec.js                产品配置（改这里）
-  src/app.js                 Three.js 场景、装配、物理、交互
+  src/spec.js                产品配置 + 五步脚本 + 五个角色（改这里）
+  src/app.js                 Three.js 场景、装配、物理、交互、演示卡
   src/geom.js                汪克尔几何：缸体型线 + 转子包络
   build.py                   打包成单文件
 examples/13b/spec.md         13B 平台的填表示例
 ```
-
-## 发布到 GitHub
-
-仓库已经 `git init` 并提交过一次，只差一个远程地址：
-
-```bash
-# 方式一：装了 GitHub CLI
-gh repo create engine-sales-demo --public --source=. --push
-
-# 方式二：先去 github.com 手动建一个空仓库，然后
-git remote add origin https://github.com/<your-name>/engine-sales-demo.git
-git branch -M main
-git push -u origin main
-```
-
-推送前记得把 `LICENSE` 里的 `<your name>` 换成你自己的名字。
 
 ## 为什么是「发动机 + 演示」而不是「一个 3D 模型」
 
@@ -97,7 +84,7 @@ git push -u origin main
 
 ## 数据引用
 
-文中引用的行业数据来自公开来源（Gartner 2025、Demand Gen Report 2024、CGI Backgrounds 2025、Storylane/Factors.ai、Shopify 3D 内容报告），仅作方向参考，不构成效果承诺。
+文中引用的行业数据来自公开来源（Gartner 2025、Demand Gen Report 2024、CGI Backgrounds 2025、Storylane/Factors.ai），仅作方向参考，不构成效果承诺。
 
 ## License
 

@@ -59,6 +59,7 @@
 </div>
 
 <div id="bottomBar">
+  <button id="bTour" class="tourbtn">演示 <kbd>P</kbd></button>
   <button id="bPause">暂停 <kbd>Space</kbd></button>
   <button id="bExplode">拆开 <kbd>E</kbd></button>
   <button id="bCut">切开 <kbd>C</kbd></button>
@@ -67,6 +68,36 @@
   <button id="bLabel">标注 <kbd>L</kbd></button>
   <span class="gap"></span>
   <button id="bFault" class="fault">顶角密封片磨损 <kbd>B</kbd></button>
+</div>
+
+<div id="tour" class="off">
+  <div class="thead">
+    <span class="tno" id="tno">01</span><span class="ttotal">/ 05</span>
+    <span class="tdiv">·</span><span class="tkicker">演示脚本 · 3 分钟版</span>
+    <span class="tdots" id="tdots"></span>
+    <span class="tspacer"></span>
+    <button id="tPrev" class="tmini">←</button>
+    <button id="tNext" class="tmini">→</button>
+    <button id="tSelf" class="tmini wide">客户版</button>
+    <button id="tExit" class="tmini wide">退出</button>
+  </div>
+  <div class="ttitle" id="ttitle">整体</div>
+  <p class="tline" id="tline"></p>
+  <div class="tfoot">
+    <span class="tlabel">谁在看</span>
+    <div class="tchips" id="troleChips"></div>
+  </div>
+  <div class="troleline" id="troleline"></div>
+</div>
+
+<div id="cta">
+  <div class="cta-k">客户自助版</div>
+  <div class="cta-t">自己拖一下，切开看看里面</div>
+  <div class="cta-s">拖动旋转 · 滚轮缩放 · 点「切开」看内部</div>
+  <div class="cta-row">
+    <a class="cta-btn" href="#" onclick="return false">预约技术澄清 →</a>
+    <button id="ctaExit">退出</button>
+  </div>
 </div>
 
 <div id="hint">拖动旋转 · 滚轮缩放</div>
